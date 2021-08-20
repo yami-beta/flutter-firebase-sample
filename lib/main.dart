@@ -1,20 +1,48 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_sample/models/app_theme_model.dart';
+import 'package:flutter_firebase_sample/models/auth_model.dart';
 import 'package:flutter_firebase_sample/pages/home_page.dart';
 import 'package:flutter_firebase_sample/pages/login_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp 前に Flutter Engine を利用するために必要らしい
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(_InitializeApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class _InitializeApp extends StatefulWidget {
+  @override
+  _InitializeAppState createState() => _InitializeAppState();
+}
 
+class _InitializeAppState extends State<_InitializeApp> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return _AppContainer();
+        }
+
+        return const CircularProgressIndicator();
+      },
+    );
+  }
+}
+
+class _AppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthModel(),
+        ),
         ChangeNotifierProvider(
           create: (context) => AppThemeModel(),
         )
