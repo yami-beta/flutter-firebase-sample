@@ -39,9 +39,9 @@ class HomePage extends StatelessWidget {
             ),
             const Text('画面遷移'),
             ElevatedButton(
-              child: const Text('Login'),
+              child: const Text('Introduction'),
               onPressed: () {
-                Navigator.of(context).pushNamed('/login');
+                Navigator.of(context).pushNamed('/introduction');
               },
             ),
           ],
