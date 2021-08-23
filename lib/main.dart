@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_sample/models/app_theme_model.dart';
 import 'package:flutter_firebase_sample/models/auth_model.dart';
 import 'package:flutter_firebase_sample/pages/home_page.dart';
-import 'package:flutter_firebase_sample/pages/login_page.dart';
+import 'package:flutter_firebase_sample/pages/introduction_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -77,7 +77,7 @@ class MyAppWidget extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const HomePage(),
-        '/login': (context) => const LoginPage(),
+        '/introduction': (context) => const IntroductionPage(),
       },
       initialRoute: '/',
     );
