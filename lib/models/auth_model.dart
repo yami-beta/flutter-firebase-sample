@@ -23,4 +23,22 @@ class AuthModel extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  Future<FirebaseAuthException?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      return e;
+    }
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
